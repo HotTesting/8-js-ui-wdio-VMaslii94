@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/StartITProtractorJS/8-js-ui-wdio/issues"
   },
-  "homepage": "https://github.com/StartITProtractorJS/8-js-ui-wdio#readme"
+  "homepage": "https://github.com/StartITProtractorJS/8-js-ui-wdio#readme",
+  "devDependencies": {
+    "@wdio/cli": "^5.12.1"
+  }
 }
