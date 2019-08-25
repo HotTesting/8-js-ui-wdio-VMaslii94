@@ -7,6 +7,9 @@ describe('Website', function () {
         browser.url('/')
         const img = $('img[src="http://ip-5236.sunline.net.ua:38015/images/logotype.png"]')
         assert(img.isExisting(), 'Website should be opened, and logo displayed')
-        browser.pause(5000)
+        browser.pause(5000);
+
+        //Vlad Maslii first test
+    
     })
 })
