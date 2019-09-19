@@ -2,6 +2,7 @@ import { Checkout } from "../pageObject/checkout";
 //import { App } from '../../pageObjects/application';
 import { expect } from "chai";
 import { ProductDetails } from "../pageObject/productDetails";
+import { CustomerModel, ValidCustomerModel } from '../dataModel/customer';
 /**
  - verify prices in cart, and after order created
  - verify order is successful
@@ -44,6 +45,45 @@ describe("Order", function() {
     expect(productPricefromCart, "Price difference").eql(productPrice);
 
     checkout.customerDetails.populateAllData();
+    checkout.customerDetails.saveChanges();
+    browser.pause(2000);
+    checkout.confirmOrder();
+    browser.pause(2000);
+    let curUrl = browser.getUrl();
+    expect(curUrl).include("/order_success");
+    //browser.pause(12000);
+  });
+
+  it("is failed when email missing for regular item", function() {
+    // http://ip-5236.sunline.net.ua:38015/rubber-ducks-c-1/red-duck-p-3
+    // Just regular duck without discounts, parameters, or sold our
+    let product = new ProductDetails();
+    product.open("/rubber-ducks-c-1/red-duck-p-3");
+
+    const productName = product.getProductName();
+    const productPrice = product.getProductPrice();
+
+    // console.log("NNN"+productName+productPrice);
+
+    product.addToCart();
+    //browser.pause(5000);
+    let checkout = new Checkout();
+    checkout.open();
+    //browser.pause(5000);
+    expect(checkout.ifItemsInCart()).to.be.true;
+
+    let productNamefromCart = checkout.shoppingCart.items[0].getProductName();
+
+    let productPricefromCart = checkout.shoppingCart.items[0].getProductPrice();
+
+    // console.log("TTT"+" name: "+productNamefromCart+" price:"+productPricefromCart+" quantity:"+productQuantityfromCart);
+
+    expect(productNamefromCart, "Name difference").eql(productName);
+
+    expect(productPricefromCart, "Price difference").eql(productPrice);
+
+    const validCustomer = new ValidCustomerModel();
+    checkout.customerDetails.setCustomerDetails(validCustomer);
     checkout.customerDetails.saveChanges();
     browser.pause(2000);
     checkout.confirmOrder();

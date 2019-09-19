@@ -1,14 +1,9 @@
 import { threadId } from "worker_threads";
+import { CustomerModel } from '../dataModel/customer';
 
 export class Checkout {
-  shoppingCart;
-  customerDetails;
-  //  shoppingCart = new shoppingCart(); //TypeScript
-  // JS
-  constructor() {
-    this.shoppingCart = new shoppingCart();
-    this.customerDetails = new customerDetails();
-  }
+  shoppingCart: ShoppingCart = new ShoppingCart();
+  customerDetails: CustomerDetails = new CustomerDetails();
 
   private get noItemsLabel() {
     return $(".cart.wrapper em");
@@ -38,7 +33,7 @@ export class Checkout {
 }
 
 //Component
-class shoppingCart {
+class ShoppingCart {
   private get container() {
     return $("#box-checkout-cart");
   }
@@ -86,7 +81,7 @@ class Item {
 
 //}
 
- class customerDetails {
+ class CustomerDetails {
   // private get container() {
   //   return $("#box-checkout-customer.box");
   // }
@@ -99,7 +94,7 @@ class Item {
   setCompanyName(name: string) {
     $('input[name="company"]').setValue(name);
   }
-  setTax(name: number) {
+  setTax(name: string) {
     $('input[name="tax_id"]').setValue(name);
   }
   setFirstName(name: string) {
@@ -116,7 +111,7 @@ class Item {
     $('input[name="address2"]').clearValue();
     $('input[name="address2"]').setValue(name);
   }
-  setPostCode(name: number) {
+  setPostCode(name: string) {
     $('input[name="postcode"]').setValue(name);
   }
   setCity(name: string) {
@@ -126,21 +121,22 @@ class Item {
     $('input[name="email"]').clearValue();
     $('input[name="email"]').setValue(name);
   }
-  setPhone(name: number) {
+  setPhone(name: string) {
     $('input[name="phone"]').clearValue();
     $('input[name="phone"]').setValue(name);
   }
-  populateAllData() {
-    this.setCompanyName("myCompany");
-    this.setTax(444);
-    this.setFirstName("Vlad");
-    this.setLastName("Maslii");
-    this.setAddress1("myAdress1");
-    this.setAddress2("myAdress2");
-    this.setCity("Kiev");
-    this.setPostCode(16500);
-    this.setPhone(380931111111);
-    this.setEmail("Test@gmail.com");
+
+  setCustomerDetails(customerModel: CustomerModel) {
+    this.setCompanyName(customerModel.company);
+    this.setTax(customerModel.tax);
+    this.setFirstName(customerModel.firstName);
+    this.setLastName(customerModel.lastName);
+    this.setAddress1(customerModel.address1);
+    this.setAddress2(customerModel.address2);
+    this.setCity(customerModel.city);
+    this.setPostCode(customerModel.postCode);
+    this.setPhone(customerModel.phone);
+    this.setEmail(customerModel.email);
   }
 
   saveChanges(){
