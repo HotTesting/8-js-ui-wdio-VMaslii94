@@ -1,4 +1,4 @@
-const assert = require('assert');
+//const assert = require('assert');
 /**
  - Try to implement as much tests as you can
  - Do not overload tests with logic, be simple
@@ -80,7 +80,7 @@ describe("Items search", function() {
       //    }
       
 
-      compareArrays = JSON.stringify(mapper) == JSON.stringify(sortedArray);
+      let compareArrays = JSON.stringify(mapper) == JSON.stringify(sortedArray);
       // if (JSON.stringify(mapper) == JSON.stringify(sortedArray))
       //   console.log("True");
       // else
@@ -127,7 +127,7 @@ describe("Items search", function() {
       //   console.log(element);  
       //    }
 
-      compareArrays = JSON.stringify(mapper) == JSON.stringify(sortedArray);
+      let compareArrays = JSON.stringify(mapper) == JSON.stringify(sortedArray);
     
       assert.equal(compareArrays,true)
 

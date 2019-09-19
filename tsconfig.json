@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "outDir": "./build",
+        "allowJs": true,
+        "types": [
+            "node", 
+            "@wdio/sync", 
+            "@wdio/mocha-framework"
+        ],
+        "target": "es2018"
+    }
+    
+}

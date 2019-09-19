@@ -1,3 +1,5 @@
+require('ts-node').register({ files: true });
+
 exports.config = {
     //
     // ====================
@@ -21,8 +23,9 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './homework/*.js'
+       // './test/specs/cart.ts'
        // './test/specs/**/*.js'
+       'homework/lesson_4.ts'
     ],
     // Patterns to exclude.
     exclude: [
