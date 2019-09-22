@@ -2,6 +2,7 @@ import { Checkout } from "../pageObject/checkout";
 //import { App } from '../../pageObjects/application';
 import { expect } from "chai";
 import { ProductDetails } from "../pageObject/productDetails";
+import{ValidCustomerModel} from "../dataModel/customer"
 /**
  - verify prices in cart, and after order created
  - verify order is successful
@@ -15,6 +16,8 @@ import { ProductDetails } from "../pageObject/productDetails";
 
 // Each implemented test gives you 15 points
 describe("Order", function() {
+
+  let data1=new ValidCustomerModel();
   it("is successful for regular item", function() {
     // http://ip-5236.sunline.net.ua:38015/rubber-ducks-c-1/red-duck-p-3
     // Just regular duck without discounts, parameters, or sold our
@@ -43,7 +46,7 @@ describe("Order", function() {
 
     expect(productPricefromCart, "Price difference").eql(productPrice);
 
-    checkout.customerDetails.populateAllData();
+    checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
     browser.pause(2000);
     checkout.confirmOrder();
@@ -82,7 +85,7 @@ describe("Order", function() {
 
     expect(productPricefromCart, "Price difference").eql(productPrice);
 
-    checkout.customerDetails.populateAllData();
+    checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
     browser.pause(2000);
     checkout.confirmOrder();
@@ -122,7 +125,7 @@ describe("Order", function() {
 
     expect(productPricefromCart, "Price difference").eql(productPrice);
 
-    checkout.customerDetails.populateAllData();
+    checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
     browser.pause(2000);
     checkout.confirmOrder();
@@ -173,7 +176,7 @@ describe("Order", function() {
 
     expect(Sum, "incorrect sum").eql(productPrice * 2);
 
-    checkout.customerDetails.populateAllData();
+    checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
     browser.pause(2000);
     checkout.confirmOrder();
@@ -220,7 +223,7 @@ describe("Order", function() {
    productArray.sort();
     expect(productArray).eql(allProductsCart);
 
-    checkout.customerDetails.populateAllData();
+    checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
     browser.pause(2000);
     checkout.confirmOrder();
@@ -259,7 +262,7 @@ describe("Order", function() {
     console.log("allProductsCart:" + allProductsCart);
     expect(productArray).eql(allProductsCart);
 
-    checkout.customerDetails.populateAllData();
+    checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
     browser.pause(2000);
     checkout.confirmOrder();
@@ -273,13 +276,15 @@ describe("Order", function() {
 
   beforeEach(function() {
    
-   let checkout = new Checkout();
-    if (checkout.ifNoItemsInCart) {
-      console.log("No items in the basket");
-    } else {
-      checkout.shoppingCart.items.forEach(element => {
-        element.deleteAllItems();
-        checkout.open();
-      });}
+    browser.deleteAllCookies();
+    
+  //  let checkout = new Checkout();
+  //   if (checkout.ifNoItemsInCart) {
+  //     console.log("No items in the basket");
+  //   } else {
+  //     checkout.shoppingCart.items.forEach(element => {
+  //       element.deleteAllItems();
+  //       checkout.open();
+  //     });}
   });
 });
