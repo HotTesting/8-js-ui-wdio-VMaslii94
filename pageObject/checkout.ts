@@ -16,7 +16,9 @@ export class Checkout {
   }
   open() {
     browser.url("/checkout");
-    browser.pause(3000);
+    $('.loader-wrapper .loader').waitForDisplayed(null, true, "Loader is disappear")
+    
+   
   }
 
   ifNoItemsInCart() {
@@ -33,6 +35,8 @@ export class Checkout {
   }
   
   confirmOrder(){
+  $('div button[name="confirm_order"]').waitForEnabled();
+  $('div button[name="confirm_order"]').waitForDisplayed();
     $('.btn[name="confirm_order"]').click();
   }
 
@@ -72,7 +76,9 @@ class Item {
    return price*quantity
  }
  deleteAllItems(){
-  $('button .btn btn-danger,[name="remove_cart_item"]').click();
+  let deleteButton = $('button .btn btn-danger,[name="remove_cart_item"]');
+  deleteButton.waitForDisplayed();
+  deleteButton.click();
   
  }
 

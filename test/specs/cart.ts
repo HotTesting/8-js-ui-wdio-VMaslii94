@@ -9,10 +9,8 @@ describe("Adding", function() {
     const product = new ProductDetails();
     product.open("/rubber-ducks-c-1/red-duck-p-3");
     product.addToCart();
-    browser.pause(5000);
     const checkout = new Checkout();
     checkout.open();
-    //browser.pause(5000);
     expect(checkout.ifItemsInCart()).to.be.true;
   });
   it("Much products", () => {
@@ -44,7 +42,6 @@ describe("Adding", function() {
 
     // }
     product.addToCart();
-    //browser.pause(5000);
 
     // let productNamefromCart = checkout.shoppingCart.items[0].getProductName();
 
@@ -63,12 +60,10 @@ describe("Adding", function() {
     let thirdDuck = product.setSize("Large");
     console.log("thirdDuck" + thirdDuck);
     productArray.push(thirdDuck);
-    // browser.pause(2000);
     product.addToCart();
 
     const checkout = new Checkout();
     checkout.open();
-    // browser.pause(5000);
     expect(checkout.ifItemsInCart()).to.be.true;
 
     let allProductsCart = checkout.shoppingCart.items.map(item => {
@@ -81,12 +76,9 @@ describe("Adding", function() {
 
     checkout.customerDetails.populateAllData();
     checkout.customerDetails.saveChanges();
-    browser.pause(2000);
     checkout.confirmOrder();
-    browser.pause(2000);
     let curUrl = browser.getUrl();
     expect(curUrl).include("/order_success");
-    browser.pause(12000);
   });
 
   it.only("My test", () => {
@@ -106,10 +98,8 @@ describe("Adding", function() {
 
     product.open("/rubber-ducks-c-1/purple-duck-p-5");
     product.addToCart();
-    //browser.pause(5000);
     const checkout = new Checkout();
     checkout.open();
-    //browser.pause(5000);
     expect(checkout.ifItemsInCart()).to.be.true;
     
 
@@ -136,9 +126,8 @@ describe("Adding", function() {
 
     // checkout.customerDetails.populateAllData();
     // checkout.customerDetails.saveChanges();
-    // browser.pause(2000);
+    
     // checkout.confirmOrder();
-     browser.pause(20000);
     // let curUrl = browser.getUrl();
     // expect(curUrl).include("/order_success");
   });

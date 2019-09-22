@@ -21,7 +21,7 @@ describe('User', function () {
         confirmPasswordInput.setValue(email)
         const createAccountButton = registrationForm.$('button[name="create_account"]')
         createAccountButton.click()
-        // browser.pause(120000)
+    
 
         // '#notices .alert-success'
         // 'Your customer account has been created.'

@@ -2,7 +2,7 @@ import { Checkout } from "../pageObject/checkout";
 //import { App } from '../../pageObjects/application';
 import { expect } from "chai";
 import { ProductDetails } from "../pageObject/productDetails";
-import{ValidCustomerModel} from "../dataModel/customer"
+import { ValidCustomerModel } from "../dataModel/customer";
 /**
  - verify prices in cart, and after order created
  - verify order is successful
@@ -16,8 +16,7 @@ import{ValidCustomerModel} from "../dataModel/customer"
 
 // Each implemented test gives you 15 points
 describe("Order", function() {
-
-  let data1=new ValidCustomerModel();
+  let data1 = new ValidCustomerModel();
   it("is successful for regular item", function() {
     // http://ip-5236.sunline.net.ua:38015/rubber-ducks-c-1/red-duck-p-3
     // Just regular duck without discounts, parameters, or sold our
@@ -27,20 +26,15 @@ describe("Order", function() {
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
 
-    // console.log("NNN"+productName+productPrice);
-
+    
     product.addToCart();
-    //browser.pause(5000);
     let checkout = new Checkout();
     checkout.open();
-    //browser.pause(5000);
     expect(checkout.ifItemsInCart()).to.be.true;
 
     let productNamefromCart = checkout.shoppingCart.items[0].getProductName();
 
     let productPricefromCart = checkout.shoppingCart.items[0].getProductPrice();
-
-    // console.log("TTT"+" name: "+productNamefromCart+" price:"+productPricefromCart+" quantity:"+productQuantityfromCart);
 
     expect(productNamefromCart, "Name difference").eql(productName);
 
@@ -48,12 +42,10 @@ describe("Order", function() {
 
     checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
-    browser.pause(2000);
     checkout.confirmOrder();
-    browser.pause(2000);
     let curUrl = browser.getUrl();
     expect(curUrl).include("/order_success");
-    //browser.pause(12000);
+    expect(product.header.headerCart.getQuantity()).eql(0);
   });
 
   it("is successful for discounted item", function() {
@@ -66,20 +58,16 @@ describe("Order", function() {
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
 
-    // console.log("NNN"+productName+productPrice);
 
     product.addToCart();
-    //browser.pause(5000);
-   // const checkout = new Checkout();
+
     checkout.open();
-    //browser.pause(5000);
+
     expect(checkout.ifItemsInCart()).to.be.true;
 
     let productNamefromCart = checkout.shoppingCart.items[0].getProductName();
 
     let productPricefromCart = checkout.shoppingCart.items[0].getProductPrice();
-
-    // console.log("TTT"+" name: "+productNamefromCart+" price:"+productPricefromCart+" quantity:"+productQuantityfromCart);
 
     expect(productNamefromCart, "Name difference").eql(productName);
 
@@ -87,11 +75,11 @@ describe("Order", function() {
 
     checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
-    browser.pause(2000);
+
     checkout.confirmOrder();
-    browser.pause(3000);
     let curUrl = browser.getUrl();
     expect(curUrl).include("/order_success");
+    expect(product.header.headerCart.getQuantity()).eql(0);
 
     // throw new Error("NOT IMPLEMENTED");
   });
@@ -106,13 +94,11 @@ describe("Order", function() {
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
 
-    // console.log("NNN"+productName+productPrice);
 
     product.addToCart();
-    //browser.pause(5000);
-    //const checkout = new Checkout();
+
     checkout.open();
-    //browser.pause(5000);
+
     expect(checkout.ifItemsInCart()).to.be.true;
 
     let productNamefromCart = checkout.shoppingCart.items[0].getProductName();
@@ -127,11 +113,12 @@ describe("Order", function() {
 
     checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
-    browser.pause(2000);
+
     checkout.confirmOrder();
-    browser.pause(2000);
+
     let curUrl = browser.getUrl();
     expect(curUrl).include("/order_success");
+    expect(product.header.headerCart.getQuantity()).eql(0);
 
     //throw new Error("NOT IMPLEMENTED");
   });
@@ -146,17 +133,14 @@ describe("Order", function() {
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
 
-    // console.log("NNN"+productName+productPrice);
 
     product.addToCart();
     product.open("h/rubber-ducks-c-1/red-duck-p-3");
-    // console.log("NNN"+productName+productPrice);
 
     product.addToCart();
-    //browser.pause(5000);
-    //const checkout = new Checkout();
+
     checkout.open();
-    //browser.pause(5000);
+
     expect(checkout.ifItemsInCart()).to.be.true;
 
     let productNamefromCart = checkout.shoppingCart.items[0].getProductName();
@@ -166,10 +150,6 @@ describe("Order", function() {
       productPricefromCart,
       productQuantityfromCart
     );
-    console.log("Sum of all: " + Sum);
-
-    // console.log("TTT"+" name: "+productNamefromCart+" price:"+productPricefromCart+" quantity:"+productQuantityfromCart);
-
     expect(productNamefromCart, "Name difference").eql(productName);
 
     expect(productPricefromCart, "Price difference").eql(productPrice);
@@ -178,9 +158,9 @@ describe("Order", function() {
 
     checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
-    browser.pause(2000);
+
     checkout.confirmOrder();
-    browser.pause(2000);
+
     let curUrl = browser.getUrl();
     expect(curUrl).include("/order_success");
 
@@ -188,12 +168,12 @@ describe("Order", function() {
   });
 
   it("is successful for 2 different items in card", function() {
-    let productArray = [];
+    let productArray1 = [];
     let product = new ProductDetails();
     let checkout = new Checkout();
     product.open("/rubber-ducks-c-1/red-duck-p-3");
     let firstDuck = product.getAllProductInfo();
-    productArray.push(firstDuck);
+    productArray1.push(firstDuck);
     product.addToCart();
     //console.log("firstDuck:"+firstDuck)
 
@@ -201,16 +181,9 @@ describe("Order", function() {
     let secondDuck = product.getAllProductInfo();
     //console.log("secondDuck"+secondDuck)
     product.addToCart();
-    productArray.push(secondDuck);
-    console.log("productArray:" + productArray);
-    // for (const key in productArray) {
-
-    //     const element = productArray[key];
-    //     console.log("Prod"+element)
-
-    // }
-
-    //const checkout = new Checkout();
+    productArray1.push(secondDuck);
+    console.log("productArray1:" + productArray1);
+    
     checkout.open();
     expect(checkout.ifItemsInCart()).to.be.true;
 
@@ -220,17 +193,16 @@ describe("Order", function() {
 
     console.log("allProductsCart:" + allProductsCart);
 
-   productArray.sort();
-    expect(productArray).eql(allProductsCart);
+   // productArray1.sort();
+    expect(productArray1).eql(allProductsCart);
 
     checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
-    browser.pause(2000);
+
     checkout.confirmOrder();
-    browser.pause(2000);
+
     let curUrl = browser.getUrl();
     expect(curUrl).include("/order_success");
-    // browser.pause(12000);
 
     //throw new Error("NOT IMPLEMENTED");
   });
@@ -247,12 +219,11 @@ describe("Order", function() {
     let yellowDuck = product.setSize("Large");
     console.log("yellowDuck" + yellowDuck);
     productArray.push(yellowDuck);
-    // browser.pause(2000);
+
     product.addToCart();
 
-   // const checkout = new Checkout();
     checkout.open();
-    // browser.pause(5000);
+
     expect(checkout.ifItemsInCart()).to.be.true;
 
     let allProductsCart = checkout.shoppingCart.items.map(item => {
@@ -264,27 +235,25 @@ describe("Order", function() {
 
     checkout.customerDetails.setCustomerDetails(data1);
     checkout.customerDetails.saveChanges();
-    browser.pause(2000);
+
     checkout.confirmOrder();
-    browser.pause(2000);
+
     let curUrl = browser.getUrl();
     expect(curUrl).include("/order_success");
-    // browser.pause(12000);
 
     //throw new Error("NOT IMPLEMENTED");
   });
 
   beforeEach(function() {
-   
     browser.deleteAllCookies();
-    
-  //  let checkout = new Checkout();
-  //   if (checkout.ifNoItemsInCart) {
-  //     console.log("No items in the basket");
-  //   } else {
-  //     checkout.shoppingCart.items.forEach(element => {
-  //       element.deleteAllItems();
-  //       checkout.open();
-  //     });}
+
+    //  let checkout = new Checkout();
+    //   if (checkout.ifNoItemsInCart) {
+    //     console.log("No items in the basket");
+    //   } else {
+    //     checkout.shoppingCart.items.forEach(element => {
+    //       element.deleteAllItems();
+    //       checkout.open();
+    //     });}
   });
 });

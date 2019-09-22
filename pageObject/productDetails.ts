@@ -11,8 +11,17 @@ export class ProductDetails {
   }
 
   addToCart() {
-    $('button[name="add_cart_product"]').click();
-    browser.pause(4000);
+    const currentQuantity = this.header.headerCart.getQuantity();
+    //console.log(currentQuantity+"NNNee")
+    let addToCartButton=$('button[name="add_cart_product"]');
+    addToCartButton.waitForDisplayed();
+    addToCartButton.click();
+    browser.waitUntil(() => {
+        return this.header.headerCart.getQuantity() == currentQuantity+1
+        // Or use another return this.header.headerCart.getQuantity()> currentQuantity
+      }, null,
+      'Expected items in cart has been changed. Current item: ${this.header.headerCart.getQuantity()}'
+    );
   }
   getProductPrice() {
     return parseFloat($("#box-product.box").getAttribute("data-price"));
