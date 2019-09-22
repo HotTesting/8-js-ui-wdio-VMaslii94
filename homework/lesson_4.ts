@@ -26,7 +26,6 @@ describe("Order", function() {
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
 
-    
     product.addToCart();
     let checkout = new Checkout();
     checkout.open();
@@ -57,7 +56,6 @@ describe("Order", function() {
 
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
-
 
     product.addToCart();
 
@@ -93,7 +91,6 @@ describe("Order", function() {
 
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
-
 
     product.addToCart();
 
@@ -132,7 +129,6 @@ describe("Order", function() {
 
     const productName = product.getProductName();
     const productPrice = product.getProductPrice();
-
 
     product.addToCart();
     product.open("h/rubber-ducks-c-1/red-duck-p-3");
@@ -183,7 +179,7 @@ describe("Order", function() {
     product.addToCart();
     productArray1.push(secondDuck);
     console.log("productArray1:" + productArray1);
-    
+
     checkout.open();
     expect(checkout.ifItemsInCart()).to.be.true;
 
@@ -193,7 +189,7 @@ describe("Order", function() {
 
     console.log("allProductsCart:" + allProductsCart);
 
-   // productArray1.sort();
+    // productArray1.sort();
     expect(productArray1).eql(allProductsCart);
 
     checkout.customerDetails.setCustomerDetails(data1);
@@ -249,7 +245,7 @@ describe("Order", function() {
 
     //  let checkout = new Checkout();
     //   if (checkout.ifNoItemsInCart) {
-    //     console.log("No items in the basket");
+    //     console.log("No items in the trash");
     //   } else {
     //     checkout.shoppingCart.items.forEach(element => {
     //       element.deleteAllItems();

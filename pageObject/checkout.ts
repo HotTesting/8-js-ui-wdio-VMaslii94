@@ -94,6 +94,7 @@ class Item {
 //}
 
  class customerDetails {
+ 
   // private get container() {
   //   return $("#box-checkout-customer.box");
   // }
@@ -138,6 +139,7 @@ class Item {
     $('input[name="phone"]').setValue(name);
   }
   setCustomerDetails(customerModel: CustomerModel) {
+    $('#box-checkout-customer.box').waitForDisplayed();
     this.setCompanyName(customerModel.company);
     this.setTax(customerModel.tax);
     this.setFirstName(customerModel.firstName);
@@ -151,7 +153,9 @@ class Item {
   }
 
   saveChanges(){
-    $('.btn[name="save_customer_details"]').click();
+    let saveButton= $('.btn[name="save_customer_details"]');
+    saveButton.waitForEnabled();
+    saveButton.click();
   }
 
 }
