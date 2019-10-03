@@ -12,10 +12,13 @@ Install dependencies
 npm install
 ```
 
-and run tests with
+and run tests 
 
 ```
 npm test
 ```
 
-To run all available tests
+To run tests with allure report:
+```
+npm run report
+```

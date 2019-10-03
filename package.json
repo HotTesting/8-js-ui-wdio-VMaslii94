@@ -3,19 +3,21 @@
   "version": "1.0.0",
   "description": "Demostration project for StartIT webdriverio functional automation group #8",
   "scripts": {
-    "test": "wdio wdio.conf.js"
+    "test": "wdio wdio.conf.js",
+    "report": "rm -rf allure-report allure-results && wdio wdio.conf.js && allure serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/StartITProtractorJS/8-js-ui-wdio.git"
   },
-  "author": "Oleksandr Khotemskyi <xotabu4@gmail.com>",
+  "author": "Vlad Maslii",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/StartITProtractorJS/8-js-ui-wdio/issues"
   },
   "homepage": "https://github.com/StartITProtractorJS/8-js-ui-wdio#readme",
   "devDependencies": {
+    "@wdio/allure-reporter": "5.11.14",
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
@@ -27,6 +29,7 @@
     "@wdio/local-runner": "^5.12.1",
     "@wdio/mocha-framework": "^5.12.1",
     "@wdio/spec-reporter": "^5.12.1",
+   
     "@wdio/sync": "^5.12.3",
     "chromedriver": "^76.0.0",
     "chai": "4.2.0",
