@@ -1,6 +1,9 @@
 require('ts-node').register({ files: true });
 
-exports.config = {
+const SUT_URL = process.env.SUT_URL || "http://ip-5236.sunline.net.ua:38015/";
+console.log("My url:",SUT_URL)
+
+const config = {
     //
     // ====================
     // Runner Configuration
@@ -96,7 +99,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://ip-5236.sunline.net.ua:38015/',
+    baseUrl: SUT_URL,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -137,6 +140,21 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000
     },
+
+    beforeSession: function(config,capabilities){
+        if(process.env.DEBUG == 1){
+            // Give for debbug same time for connection
+            return new Promise (resolve => setTimeout(resolve, 10000));
+        }
+    },
+    before : function(capabilities,specs){
+        browser.setWindowSize(1920 , 1080);
+    },
+    
+
+
+
+
     //
     // =====
     // Hooks
@@ -256,3 +274,12 @@ exports.config = {
     //onReload: function(oldSessionId, newSessionId) {
     //}
 }
+
+
+if (process.env.DEBUG == 1) {
+    console.log("Started in debug mode")
+    config.execArgv = ["--inspect=127.0.0.1:5858"];
+    config.mochaOpts.timeout=36000; // increase timeout for debbug
+}
+
+ module.exports.config = config; 

@@ -2,6 +2,7 @@
     "compilerOptions": {
         "outDir": "./build",
         "allowJs": true,
+        "inlineSourceMap": true,
         "types": [
             "node", 
             "@wdio/sync", 
